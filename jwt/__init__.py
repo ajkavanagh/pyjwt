@@ -4,6 +4,7 @@ Minimum implementation based on this spec:
 http://self-issued.info/docs/draft-jones-json-web-token-01.html
 """
 from __future__ import unicode_literals
+from __future__ import print_function
 import base64
 import binascii
 import hashlib
@@ -67,13 +68,13 @@ try:
     from Crypto.Hash import SHA384
     from Crypto.Hash import SHA512
     from Crypto.PublicKey import RSA
-    
+
     signing_methods.update({
         'RS256': lambda msg, key: PKCS1_v1_5.new(key).sign(SHA256.new(msg)),
         'RS384': lambda msg, key: PKCS1_v1_5.new(key).sign(SHA384.new(msg)),
         'RS512': lambda msg, key: PKCS1_v1_5.new(key).sign(SHA512.new(msg))
     })
-    
+
     verify_methods.update({
         'RS256': lambda msg, key, sig: PKCS1_v1_5.new(key).verify(SHA256.new(msg), sig),
         'RS384': lambda msg, key, sig: PKCS1_v1_5.new(key).verify(SHA384.new(msg), sig),
